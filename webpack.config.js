@@ -120,6 +120,10 @@ module.exports = {
           'sass-loader', // Takes the Sass/SCSS file and compiles to the CSS
         ],
       },
+      {
+        test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
+        loader: 'file-loader' 
+      }
     ],
   },
 

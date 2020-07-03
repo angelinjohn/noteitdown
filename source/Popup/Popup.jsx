@@ -1,54 +1,30 @@
 import React from 'react';
 import browser from 'webextension-polyfill';
-
 import './styles.scss';
+import svd48 from './svd48.png';
+import icon from './icon.png';
 
 function openWebPage(url) {
   return browser.tabs.create({url});
 }
 
+
+
+
 const Popup = () => {
-  return (
-    <section id="popup">
-      <h2>WEB-EXTENSION-STARTER</h2>
-      <button
-        id="options__button"
-        type="button"
-        onClick={() => {
-          return openWebPage('options.html');
-        }}
-      >
-        Options Page
-      </button>
-      <div className="links__holder">
-        <ul>
-          <li>
-            <button
-              type="button"
-              onClick={() => {
-                return openWebPage(
-                  'https://github.com/abhijithvijayan/web-extension-starter'
-                );
-              }}
-            >
-              GitHub
-            </button>
-          </li>
-          <li>
-            <button
-              type="button"
-              onClick={() => {
-                return openWebPage(
-                  'https://www.buymeacoffee.com/abhijithvijayan'
-                );
-              }}
-            >
-              Buy Me A Coffee
-            </button>
-          </li>
-        </ul>
-      </div>
-    </section>
+  return (<div>
+    <img src={svd48} style={{height:20,width:20,float:'left',padding:5}} alt={"logo"}/>
+    <div id="title-svaadh" style={{backgroundColor:'#003153',color: 'moccasin',textAlign: 'center',fontSize:'x-large',fontFamily: 'Cambria, Cochin, Georgia, Times, Times New Roman, serif',padding:2}}><div>Note It Down !</div>
+    <img src={icon} style={{height:20,width:20,float:'right',padding:5,cursor: 'pointer'}} alt={'logo'} id="exportDocument" title="Click to Export"/></div>
+    <div id="exportContent">
+    <textarea id="title-text"></textarea>
+    <img src={icon} style={{height:20,width:20,float:'right',padding:5,cursor: 'pointer'}} alt={'logo'} id="exportDocument" title="Click to Export"/>
+    </div>
+    <div style={{float:'right',paddingBottom:5}}>
+    <button id="changeColor">Add Content</button>
+    <button id="clear">Clear All</button>
+  </div>
+  </div>
   );
 };
 
