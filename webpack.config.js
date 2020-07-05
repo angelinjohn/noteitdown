@@ -62,6 +62,7 @@ module.exports = {
     contentScript: path.join(sourcePath, 'ContentScript', 'index.js'),
     popup: path.join(sourcePath, 'Popup', 'index.jsx'),
     options: path.join(sourcePath, 'Options', 'index.jsx'),
+    home: path.join(sourcePath, 'Home', 'index.jsx'),
   },
 
   output: {
@@ -149,7 +150,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(viewsPath, 'popup.html'),
       inject: 'body',
-      chunks: ['popup'],
+      chunks: ['popup','home'],
       filename: 'popup.html',
     }),
     new HtmlWebpackPlugin({
