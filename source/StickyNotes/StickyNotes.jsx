@@ -9,6 +9,12 @@ import {selectorFn} from './selector';
 import { debounce } from 'lodash';
 import browser from 'webextension-polyfill';
 
+browser.storage.sync.get(["noteItDownContext"]).then(function(data){
+  //browser.browserAction.getBadgeBackgroundColor({"color":"#FFFFFF"});
+  browser.browserAction.setBadgeText({"text":""});
+  console.log(data.noteItDownContext);
+});
+
 class StickyNotes extends React.Component{
   
 

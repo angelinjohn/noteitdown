@@ -16,7 +16,7 @@
   "permissions": [
     "activeTab", "declarativeContent", "storage", "webNavigation", "tabs","identity",
     "http://*/*",
-    "https://*/*"
+    "https://*/*","contextMenus"
   ],
 
   "content_security_policy": "script-src 'self'; object-src 'self'",
@@ -67,6 +67,17 @@
       "js/background.bundle.js"
     ],
     "__chrome|opera__persistent": false
+  },
+  "commands": {
+    "copy_content_action": {
+      "suggested_key": {
+        "windows": "Ctrl+Space",
+        "mac": "Command+Space",
+        "chromeos": "Ctrl+Space",
+        "linux": "Ctrl+Space"
+      },
+      "description":"Copying content through keyboard shortcut"
+    }
   }
 
 }
