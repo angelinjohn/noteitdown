@@ -3,6 +3,7 @@ import { Editor, EditorState, ContentState } from 'draft-js';
 import moment from 'moment';
 import ContentEditable from './ContentEditable';
 import './styles.css';
+import {TiTick,TiDeleteOutline,TiClipboard} from 'react-icons/Ti';
 
 const WidthProvider = require('react-grid-layout').WidthProvider;
 let ResponsiveReactGridLayout = require('react-grid-layout').Responsive;
@@ -257,7 +258,13 @@ export default class extends Component {
               onChange={editorState => this.onChange(editorState, note)}
               placeholder="Add your notes..."
             />
+            <div className='popup-icon-container'>
+              <TiTick size='2em' className='popup-icons' />
+              <TiClipboard size='2em' className='popup-icons' />
+              <TiDeleteOutline size='2em' className='popup-icons' />
+            </div>
           </div>
+
           {/* <div
             className="note-footer"
             style={noteFooterStyle}

@@ -35,12 +35,12 @@ img{
   display: none;
 
 }
-.react-grid-layout,.react-grid-item,.note-body{
-  height:450px !important;
-  min-height: 395px !important;
-  max-height: 450px !important;
+// .react-grid-layout,.react-grid-item,.note-body{
+//   height:450px !important;
+//   min-height: 395px !important;
+//   max-height: 450px !important;
  
-}
+// }
 .popup-wrapper{
  min-height:450px;
  height: 450px !important;
@@ -48,6 +48,7 @@ img{
 }
 .popup-icon-container{
   position: relative;
+  z-index:1000;
   .popup-icons{
     position: relative;
   }
@@ -56,6 +57,9 @@ img{
   display: block;
   max-height: 450px;
 }
-.note-body,.DraftEditor-editorContainer,.DraftEditor-root,.public-DraftEditor-content{
+.note-body{
+    height:80%;
+  .DraftEditor-editorContainer,.DraftEditor-root,.public-DraftEditor-content{
     height: 100%;
+  }
 }
