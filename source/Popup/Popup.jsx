@@ -1,43 +1,36 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import browser from 'webextension-polyfill';
 import './styles.scss';
-import svd48 from './svd48.png';
-import icon from './icon.png';
-import StickyNotes from '../StickyNotes/StickyNotes'; 
-import {TiTick,TiDeleteOutline,TiClipboard} from 'react-icons/Ti';
-import {MdClear} from 'react-icons/md';
-
+import {SlateInputField} from './SlateInput';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 function openWebPage(url) {
-  return browser.tabs.create({url});
+  return browser.tabs.create({ url });
 }
 // browser.tabs.executeScript({
 //   file: "js/contentScript.bundle.js"
 // });
 
+// browser.storage.sync.get(["noteItDownContext"]).then(function(data){
+//   //browser.browserAction.getBadgeBackgroundColor({"color":"#FFFFFF"});
+//   browser.browserAction.setBadgeText({"text":""});
+//   console.log(data.noteItDownContext);
+  
+// });
 
-class Popup extends React.Component {
+const theme = createMuiTheme();
 
-  render() {
-    
-    return (<div className='popup-wrapper react-stickies-wrapper'>
-      {/* <ReactStickies
-        notes={this.state.notes}
-        onChange={this.onChange}
-        grid={{isDraggable :false,
-          isResizable : false }}
-        footer = {false}
-        colors='[#ffcccc]'
-      /> */}
-      {/* <button onClick={this.displayContent}>ADD CONTENT</button> */}
-      <StickyNotes/>
-      {/* <div className='popup-icon-container'>
-      <TiTick size='2em' className='popup-icons'/>
-      <TiClipboard size='2em' className='popup-icons'/>
-      <TiDeleteOutline size='2em' className='popup-icons'/>
-      </div> */}
-      </div>
-    )
-  }
-};
+const Popup = () => {
+ return(
+  <MuiThemeProvider theme={theme}>
+ <SlateInputField initValue={JSON.stringify([
+        {
+            children: [{ text: '' }],
+        }
+      ])}
+  />
+ </MuiThemeProvider>)
+
+}
+
 
 export default Popup;

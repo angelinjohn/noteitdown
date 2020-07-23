@@ -61,8 +61,8 @@ module.exports = {
     background: path.join(sourcePath, 'Background', 'index.js'),
     contentScript: path.join(sourcePath, 'ContentScript', 'index.js'),
     popup: path.join(sourcePath, 'Popup', 'index.jsx'),
-    options: path.join(sourcePath, 'Options', 'index.jsx'),
-    home: path.join(sourcePath, 'Home', 'index.jsx'),
+    options: path.join(sourcePath, 'Options', 'index.jsx')
+  //  home: path.join(sourcePath, 'Home', 'index.jsx'),
   },
 
   output: {
@@ -71,14 +71,14 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.json','.tsx'],
     alias: {
       'webextension-polyfill': path.resolve(
         path.join(__dirname, 'node_modules', 'webextension-polyfill')
       ),
     },
   },
-
+  node: { fs: 'empty' },
   module: {
     rules: [
       {
@@ -150,7 +150,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(viewsPath, 'popup.html'),
       inject: 'body',
-      chunks: ['popup','home'],
+      chunks: ['popup'],//,home
       filename: 'popup.html',
     }),
     new HtmlWebpackPlugin({
