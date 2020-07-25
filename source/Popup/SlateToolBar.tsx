@@ -44,25 +44,18 @@ const MarkButton = ({format,icon}:any)=> {
 export const SlateToolBar = () => {
     const classes = useStyles();
     return(
-        <Paper elevation={2} className={classes.paper}>
-            <StyledToggleButtonGroup size="small" arial-label="text formatting">
-             {MarkButton({format:"bold",icon:<FaBold size={12}/>})}
-             {MarkButton({format:"italic",icon:<FaItalic size={12}/>})}
-             {MarkButton({format:"underline",icon:<FaUnderline size={12}/>})}
+        <div className="slatetoolbarparent">
+             {MarkButton({format:"bold",icon:<FaBold size={14}/>})}
+             {MarkButton({format:"italic",icon:<FaItalic size={14}/>})}
+             {MarkButton({format:"underline",icon:<FaUnderline size={14}/>})}
              {MarkButton({format:"code",icon:<FaCode size={14}/>})}
-            </StyledToggleButtonGroup>
-            <Divider orientation="vertical" className={classes.divider} />
-      <StyledToggleButtonGroup
-        size="small"
-        arial-label="text formatting"
-        exclusive
-      >
-        {BlockButton({ format: "heading-one", icon: <MdLooksOne size={18} /> })}
-        {BlockButton({ format: "heading-two", icon: <MdLooksTwo size={18} /> })}
-        {BlockButton({
+      
+        {BlockButton({ format: "heading-one", icon: <MdLooksOne size={12} /> })}
+        {BlockButton({ format: "heading-two", icon: <MdLooksTwo size={12} /> })}
+        {/* {BlockButton({
           format: "block-quote",
           icon: <MdFormatQuote size={24} />,
-        })}
+        })} */}
         {BlockButton({
           format: "numbered-list",
           icon: <MdFormatListNumbered size={24} />,
@@ -71,8 +64,6 @@ export const SlateToolBar = () => {
           format: "bulleted-list",
           icon: <MdList size={34} />,
         })}
-      </StyledToggleButtonGroup>
-      <Divider orientation="vertical" className={classes.divider} />
       {/* <div className={classes.button}>
         {InsertImageButton({
           icon: <MdImage size={28} />,
@@ -81,7 +72,7 @@ export const SlateToolBar = () => {
           icon: <MdOndemandVideo size={28} />,
         })}
       </div> */}
-        </Paper>
+        </div>
     )
 }
 

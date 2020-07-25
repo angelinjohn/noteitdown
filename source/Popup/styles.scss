@@ -5,62 +5,64 @@
 body {
   color: $black;
   background-color: $white;
-  height:450px;
+  width:360px;
+  height:600px;
   display: block;
-  max-height: 450px;
   font-family: 'Roboto', sans-serif;
-  
+  font-size:90%;
+  margin:0;
+}
+.popup-root,.popup-wrapper{
+  height:inherit;
+  display: block;
+  max-height: 600px;
+  overflow-y: none;
 }
 html{
   display: block;
-  
-  //position: absolute;
+}
+.MuiAppBar-colorPrimary {
+  background-color:#ffffff !important;
+  color: #2E5282 !important;
+  height:50px !important;
+}
+.MuiPaper-elevation4{
+  box-shadow: none !important;
+  border-bottom: 1px solid #cccccc;
 }
 
-#popup {
-  
+.MuiToolbar-regular{
+  min-height:50px !important;
+  height:50px;
 }
-#popup-root{
-  height:450px !important;
-  width:375px !important;
-  max-height: 450px !important;
- // position: absolute;
+.MuiToolbar-gutters{
+  padding:0 !important;
 }
-img{
-  filter:none;
+.nidlogo{
+  height:35px;
+  width:35px;
+  padding:0px 12px 0px 8px;
 }
-.note-header .add{
-  display: none;
+.nidContent{
+  margin:0px 8px 8px 8px;
+  max-height:390px;
+  //overflow-y: auto;
 }
-.public-DraftEditorPlaceholder-root,.react-resizable-handle{
-  display: none;
+.slatetoolbarparent{
+  height:50px;
+}
+.slate{
+  height:390px;
+//  overflow-y: auto;
+  }
+.MuiToggleButton-root{
+ border:0 !important;
+}
 
+.MuiFormControl-root{
+  width: 100% !important;
 }
-// .react-grid-layout,.react-grid-item,.note-body{
-//   height:450px !important;
-//   min-height: 395px !important;
-//   max-height: 450px !important;
- 
-// }
-.popup-wrapper{
- min-height:450px;
- height: 450px !important;
- max-height: 450px !important;
-}
-.popup-icon-container{
-  position: relative;
-  z-index:1000;
-  .popup-icons{
-    position: relative;
-  }
-}
-.DraftEditor-editorContainer{
-  display: block;
-  max-height: 450px;
-}
-.note-body{
-    height:80%;
-  .DraftEditor-editorContainer,.DraftEditor-root,.public-DraftEditor-content{
-    height: 100%;
-  }
+.MuiTypography-subtitle1{
+  font-weight: 600 !important;
+  font-size: 18px !important;
 }

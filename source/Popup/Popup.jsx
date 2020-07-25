@@ -3,6 +3,7 @@ import browser from 'webextension-polyfill';
 import './styles.scss';
 import {SlateInputField} from './SlateInput';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import Header from './Header';
 function openWebPage(url) {
   return browser.tabs.create({ url });
 }
@@ -20,15 +21,40 @@ function openWebPage(url) {
 const theme = createMuiTheme();
 
 const Popup = () => {
+
+  const [noteInitValue,setNoteInitialValue] = useState(JSON.stringify([
+    {
+        children: [{ text: '' }],
+    }
+  ]));
+
+  
+ 
+  browser.storage.sync.get(["noteItDownContext"]).then(function(data){
+      //browser.browserAction.getBadgeBackgroundColor({"color":"#FFFFFF"});
+      browser.browserAction.setBadgeText({"text":""});
+      if(data && data.noteItDownContext){
+        console.log("here===========")
+        console.log(data.noteItDownContext)
+        setNoteInitialValue(JSON.stringify([
+          {
+              children: [{ text: data.noteItDownContext}],
+          }
+        ]));
+      }
+    });
+
+
  return(
+   <div className="popup-wrapper">
   <MuiThemeProvider theme={theme}>
- <SlateInputField initValue={JSON.stringify([
-        {
-            children: [{ text: '' }],
-        }
-      ])}
+    <Header/>
+    <div className="nidContent">
+ <SlateInputField className="slate" initValue={noteInitValue}
   />
- </MuiThemeProvider>)
+  </div>
+ </MuiThemeProvider>
+ </div>)
 
 }
 
