@@ -2,7 +2,7 @@ import isHotkey from 'is-hotkey';
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { Transforms, createEditor } from 'slate';
 import { withHistory } from 'slate-history';
-import { Editable, Slate, withReact, useSlate } from 'slate-react';
+import { Editable, Slate, withReact, ReactEditor } from 'slate-react';
 import browser from 'webextension-polyfill';
 import { FormControl, FormHelperText, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -22,6 +22,7 @@ interface Props {
   label?: string;
   placeholder?: string;
   textContainerStyle?: any;
+  updateNotesMethod:any;
 }
 
 export const SlateInputField: React.FunctionComponent<Props> = ({
@@ -30,6 +31,7 @@ export const SlateInputField: React.FunctionComponent<Props> = ({
   fullWidth,
   placeholder,
   textContainerStyle,
+  updateNotesMethod,
   ...props
 }) => {
   
@@ -40,35 +42,53 @@ export const SlateInputField: React.FunctionComponent<Props> = ({
     () => withHistory(withReact(createEditor())),
     []
   );
-  
-  // browser.storage.sync.get(["noteItDownContext"]).then(function (data) {
-  //   browser.browserAction.setBadgeText({ "text": "" });
-  //   console.log(data.noteItDownContext);
-  //   if (data && data.noteItDownContext) {
-  //     const text = { text: data.noteItDownContext }
-  //     const voidNode = { type: 'paragraph', children: [text] }
-  //     Transforms.insertNodes(editor, voidNode)
-  //   }
-  // });
+ 
+
+  browser.storage.sync.get(["noteItDownContext"]).then(function (data) {
+    browser.browserAction.setBadgeText({ "text": "" });
+    console.log(data.noteItDownContext);
+    if (data && data.noteItDownContext && data.noteItDownContext.length > 0) {
+      const text = { text: data.noteItDownContext }
+      const voidNode = { type: 'paragraph', children: [text] }
+      let current_path = editor.selection.anchor.path[0]
+      let current_focus = editor.selection.focus.path[0]
+      console.log("Path---------->");
+      console.log(current_path);
+      console.log("Focus------------>");
+      console.log(current_focus);
+      ReactEditor.focus(editor);
+      Transforms.insertNodes(editor, voidNode);
+      browser.storage.sync.set({"noteItDownContext":""}).then(function(data){
+        console.log("copied text cleared");
+      });
+    }
+  });
  
   let defaultVal = JSON.stringify([
     {
         children: [{ text: '' }],
     }
   ]);
-
   const classes = useStyles();
-  const [slateValue, setSlateValue] = useState(JSON.parse(initValue));
+  const [slateValue, setSlateValue] = useState(JSON.parse(defaultVal));
+  
   useEffect(()=>{
-    if(defaultVal !== initValue){
-      setSlateValue(JSON.parse(initValue));
+    if(initValue && initValue.length > 0){
+      setSlateValue(initValue);
     }
   },[initValue]);
   
 
   const renderElement = useCallback((props) => <SlateElement {...props} />, []);
   const renderLeaf = useCallback((props) => <SlateLeaf {...props} />, []);
-
+  const updateEditor = (value) => {
+    console.log("currentSlateValue");
+    console.log(slateValue);
+    console.log("props");
+    console.log(props);
+    setSlateValue(value);
+    updateNotesMethod(value);
+  }
   //const errorMessage = meta.touched && meta.error ? meta.error : "";
   return (
     <FormControl
@@ -82,9 +102,7 @@ export const SlateInputField: React.FunctionComponent<Props> = ({
         editor={editor}
         value={slateValue}
         onChange={(value: any) => {
-          console.log("currentSlateValue");
-          console.log(slateValue)
-          setSlateValue(value);
+          updateEditor(value)
           //  setValue(JSON.stringify(value));
         }}
       >

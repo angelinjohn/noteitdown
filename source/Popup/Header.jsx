@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import { FaFileExport,FaEye,FaEyeSlash } from 'react-icons/fa';
 import nlogo from  './nid16.png';
 import './styles.scss';
 
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   const classes = useStyles();
 
   return (
@@ -31,7 +32,16 @@ export default function ButtonAppBar() {
           <Typography variant="subtitle1" className={classes.title}>
             Note It Down
           </Typography>
-          {/* <Button color="inherit">Login</Button> */}
+          <IconButton   color="inherit" aria-label="references">
+            {/* if(props.showRef){ */}
+              <FaEye  />
+            {/* }else{ */}
+              {/* <FaEyeSlash onClick={props.toggleReferences} /> */}
+            {/* } */}
+          </IconButton>
+          <IconButton   color="inherit" aria-label="export">
+            <FaFileExport onClick={props.export} />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </div>
