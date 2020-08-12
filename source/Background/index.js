@@ -15,6 +15,7 @@ var contextMenuItem = {
 browser.contextMenus.create(contextMenuItem);
 browser.contextMenus.onClicked.addListener(function (clickData) {
   if (clickData.menuItemId === "noteItDownContext" && clickData.selectionText) {
+    clickData.selectionText = clickData.selectionText + clickData.pageUrl.toString();
     browser.storage.sync.set({"noteItDownContext": clickData.selectionText}).then(function () {
             console.log('Value is set to ' + clickData.selectionText);
         })
@@ -28,6 +29,7 @@ browser.contextMenus.onClicked.addListener(function (clickData) {
 /* The function that finds and returns the selected text */
 var funcToInject = function() {
   var selection = window.getSelection();
+  var url =  window.location.href;
   return (selection.rangeCount > 0) ? selection.toString() : '';
 };
 

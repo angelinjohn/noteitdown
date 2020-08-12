@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar(props) {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -33,11 +32,7 @@ export default function ButtonAppBar(props) {
             Note It Down
           </Typography>
           <IconButton   color="inherit" aria-label="references">
-            {/* if(props.showRef){ */}
-              <FaEye  />
-            {/* }else{ */}
-              {/* <FaEyeSlash onClick={props.toggleReferences} /> */}
-            {/* } */}
+            <ReferenceIcon showRef={props.showRef} toggleRef={props.toggleRef}/>
           </IconButton>
           <IconButton   color="inherit" aria-label="export">
             <FaFileExport onClick={props.export} />
@@ -46,4 +41,12 @@ export default function ButtonAppBar(props) {
       </AppBar>
     </div>
   );
+}
+
+function ReferenceIcon(props) {
+  if (props.showRef) {
+    return <FaEye onClick={() => props.toggleRef(props.showRef)}/>
+  } else {
+    return <FaEyeSlash onClick={() => props.toggleRef(props.showRef)}/>
+  }
 }

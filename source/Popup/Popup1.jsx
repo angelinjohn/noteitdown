@@ -43,6 +43,7 @@ class Popup extends React.Component{
     }
 
 updateNotes = (dataToPersist)=>{
+  debugger;
   this.setState({notes:dataToPersist});
   console.log(this.state.notes);
   let context = this;
@@ -66,7 +67,8 @@ exportNote = () => {
 }
 
   toggleRef = (currentState) => {
-    this.setState({ showReferences: !currentState })
+    console.log(currentState.showReferences+"=====in toggle");
+   this.setState({ showReferences: !currentState })
   }
 
 onUnmount = () => {
@@ -84,18 +86,31 @@ componentWillUnmount() {
 
 
 render(){
+  let content;
+  if(this.state.showReferences){
+   content = <References initValue={this.state.references} updateNotesMethod ={this.updateNotes}/>
+  }else{
+    content = <SlateInputField className="slate" initValue={this.state.notes}
+    updateNotesMethod ={this.updateNotes}
+    />
+  }
     return( <div className="popup-wrapper">
     <MuiThemeProvider theme={theme}>
       <Header export={this.exportNote} showRef={this.state.showReferences} toggleRef={this.toggleRef}/>
       <div className="nidContent">
-   <SlateInputField className="slate" initValue={this.state.notes}
-    updateNotesMethod ={this.updateNotes}
-    />
+      {content}
     </div>
    </MuiThemeProvider>
    </div>)
 }
-
 }
 
+function References(props){
+  return (<div><div>Referencess</div>
+  <SlateInputField className="slate" initValue={props.initValue}
+  updateNotesMethod ={props.updateNotes}
+  />
+  </div>)
+
+}
 export default Popup;
