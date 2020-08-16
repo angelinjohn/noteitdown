@@ -49,7 +49,11 @@ browser.commands.onCommand.addListener(function(command) {
     allFrames: true   //  <-- inject into all frames, as the selection 
                       //      might be in an iframe, not the main page
 }, function(selectedTextPerFrame) {
-
+      chrome.tabs.query({ 'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT },
+        function (tabs) {
+          browser.storage.sync.set({"referenceContext": tabs[0].url});
+        }
+      );
     if (chrome.runtime.lastError) {
         /* Report any error */
         console.log('ERROR:\n' + chrome.runtime.lastError.message);

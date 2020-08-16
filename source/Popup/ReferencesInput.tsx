@@ -22,16 +22,16 @@ interface Props {
   label?: string;
   placeholder?: string;
   textContainerStyle?: any;
-  updateNotesMethod:any;
+  updateReferencesMethod:any;
 }
 
-export const SlateInputField: React.FunctionComponent<Props> = ({
+export const ReferencesInput: React.FunctionComponent<Props> = ({
   initValue,
   required,
   fullWidth,
   placeholder,
   textContainerStyle,
-  updateNotesMethod,
+  updateReferencesMethod,
   ...props
 }) => {
   
@@ -43,26 +43,26 @@ export const SlateInputField: React.FunctionComponent<Props> = ({
     []
   );
  
-
-  browser.storage.sync.get(["noteItDownContext"]).then(function (data) {
+  browser.storage.sync.get(["referenceContext"]).then(function (data) {
     browser.browserAction.setBadgeText({ "text": "" });
-    console.log(data.noteItDownContext);
-    if (data && data.noteItDownContext && data.noteItDownContext.length > 0) {
-      const text = { text: data.noteItDownContext }
-      const voidNode = { children: [text] ,type: 'paragraph'}
+    console.log(data.referenceContext);
+    if (data && data.referenceContext && data.referenceContext.length > 0) {
+      const text = { text: data.referenceContext }
+      const voidNode = { type: 'paragraph', children: [text] }
       let current_path = editor.selection.anchor.path[0]
-      let current_focus = editor.selection.focus.path
-      Transforms.select(editor,current_focus);
+      let current_focus = editor.selection.focus.path[0]
+      console.log("Path---------->");
+      console.log(current_path);
+      console.log("Focus------------>");
+      console.log(current_focus);
+      ReactEditor.focus(editor);
       Transforms.insertNodes(editor, voidNode);
-      Transforms.move(editor);
-      console.log("Slate Value---------->");
-      console.log(slateValue);
-      browser.storage.sync.set({"noteItDownContext":""}).then(function(data){
-        console.log("copied text cleared");
+      browser.storage.sync.set({"referenceContext":""}).then(function(data){
+        console.log("copied reference cleared");
       });
     }
   });
- 
+
   let defaultVal = JSON.stringify([
     {
         children: [{ text: '' }],
@@ -86,7 +86,7 @@ export const SlateInputField: React.FunctionComponent<Props> = ({
     console.log("props");
     console.log(props);
     setSlateValue(value);
-    updateNotesMethod(value);
+    updateReferencesMethod(value);
   }
   //const errorMessage = meta.touched && meta.error ? meta.error : "";
   return (
@@ -106,7 +106,6 @@ export const SlateInputField: React.FunctionComponent<Props> = ({
         }}
       >
         <SlateToolBar />
-        {/* <HoveringToolBar/> */}
         <Editable
           id={1}
           renderLeaf={renderLeaf}
