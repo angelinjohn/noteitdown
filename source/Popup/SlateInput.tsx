@@ -52,7 +52,7 @@ export const SlateInputField: React.FunctionComponent<Props> = ({
       const voidNode = { children: [text] ,type: 'paragraph'}
       let current_path = editor.selection.anchor.path[0]
       let current_focus = editor.selection.focus.path
-      Transforms.select(editor,current_focus);
+      //Transforms.select(editor,current_focus);
       Transforms.insertNodes(editor, voidNode);
       Transforms.move(editor);
       console.log("Slate Value---------->");
